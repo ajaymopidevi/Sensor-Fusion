@@ -1,6 +1,6 @@
 ### Welcome to the Sensor Fusion course for self-driving cars.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/kXXeOlb-J-k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![Sensor Fusion]("sensor_fusion.png")](https://www.youtube.com/watch?v=kXXeOlb-J-k)
 
 In this course we will be talking about sensor fusion, whch is the process of taking data from multiple sensors and combining it to give us a better understanding of the world around us. we will mostly be focusing on two sensors, lidar, and radar. By the end we will be fusing the data from these two sensors to track multiple cars on the road, estimating their positions and speed.
 
@@ -8,4 +8,7 @@ In this course we will be talking about sensor fusion, whch is the process of ta
 
 **Radar** data is typically very sparse and in a limited range, however it can directly tell us how fast an object is moving in a certain direction. This ability makes radars a very pratical sensor for doing things like cruise control where its important to know how fast the car infront of you is traveling. Radar sensors are also very affordable and common now of days in newer cars.
 
+<img src="sensor_comparision_chart.png" width="700" height="400" />
+
 **Sensor Fusion** by combing lidar's high resoultion imaging with radar's ability to measure velocity of objects we can get a better understanding of the sorrounding environment than we could using one of the sensors alone.
+
