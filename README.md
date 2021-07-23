@@ -1,3 +1,14 @@
+This repository contains my project work for the course [SensorFusion](https://www.udacity.com/course/sensor-fusion-engineer-nanodegree--nd313).
+
+As part of this course, I have completed following projects:
+1. [Lidar Obstacle Detection](https://github.com/ajaynarasimha/Sensor-Fusion/tree/main/Lidar_Obstacle_Detection): Detecting the obstacles using lidar pointcloud data 
+2. [2D Feature Tracking](https://github.com/ajaynarasimha/Sensor-Fusion/tree/main/2D_Feature_Matching) : Tracking features from Camera images
+3. [3D Object Tracking](https://github.com/ajaynarasimha/Sensor-Fusion/tree/main/3D_Object_Trracking) : Tracking vehicles using Camera and Lidar data to prevent collision
+4. [Unscented Kalman Filter](https://github.com/ajaynarasimha/Sensor-Fusion/tree/main/Unscented_Kalman_Filter) : Estimate trajectory of multipl cars on highway using noisy data
+
+
+More details on the course can found below
+
 ### Welcome to the Sensor Fusion course for self-driving cars.
 
 [![Sensor Fusion](https://github.com/ajaynarasimha/Sensor-Fusion/blob/main/sensor_fusion.png)](https://www.youtube.com/watch?v=kXXeOlb-J-k)
