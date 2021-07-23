@@ -2,14 +2,56 @@
 
 <img src="images/keypoints.png" width="820" height="248" />
 
-The idea of the camera course is to build a collision detection system - that's the overall goal for the Final Project. As a preparation for this, you will now build the feature tracking part and test various detector / descriptor combinations to see which ones perform best. This mid-term project consists of four parts:
+The idea of the camera course is to build a collision detection system - that's the overall goal for the Final Project. I have built a feature tracking part and tested various detector / descriptor combinations to see which ones perform best.
 
-* First, you will focus on loading images, setting up data structures and putting everything into a ring buffer to optimize memory load. 
-* Then, you will integrate several keypoint detectors such as HARRIS, FAST, BRISK and SIFT and compare them with regard to number of keypoints and speed. 
-* In the next part, you will then focus on descriptor extraction and matching using brute force and also the FLANN approach we discussed in the previous lesson. 
-* In the last part, once the code framework is complete, you will test the various algorithms in different combinations and compare them with regard to some performance measures. 
+* For loading images, setting up data structures and putting everything into a ring buffer to optimize memory load. 
+  * Implemented a linked list where each node stores a dataframe and link to the next node. 
+  * While inserting a new node, it checks for the length of the linked list. If it’s less than the buffersize, it adds a new node. If it is equal to buffersize, the head      pointer points to head-> next and the initial head node is removed. Then a new node is inserted.
+  * Code for linkedlist is in dataStructures.cpp
 
-See the classroom instruction and code comments for more details on each of these parts. Once you are finished with this project, the keypoint matching part will be set up and you can proceed to the next lesson, where the focus is on integrating Lidar points and on object detection using deep-learning. 
+* Integrated several keypoint detectors and compared them with regard to number of keypoints and speed. 
+  * **Keypoint Detection:** 
+    * detectorType variable can be SHITOMASI, HARRIS, SIFT, FAST, ORB, BRISK, AKAZE. 
+    * Based on the detectorType, variable the corresponding detector is used to keypoint detection.
+
+  * **Keypoint Removal:**
+    * Keypoints inside the defined rectangle are only stored.
+    *  The number of keypoints in the rectangle is reported in [2D_Feature_Tracking_Log.csv](https://github.com/ajaynarasimha/Sensor-Fusion/blob/main/2D_Feature_Matching/2D_Feature_tracking_Log.csv) 
+
+  * **Detector Algorithm Evaluation:**
+    * The number of keypoints on preceding vehicle for all the 10 images reported in [2D_Feature_Tracking_Log.csv](https://github.com/ajaynarasimha/Sensor-Fusion/blob/main/2D_Feature_Matching/2D_Feature_tracking_Log.csv). This has been repeated for all the keypoint detection techniques (SHITOMASI, HARRIS, SIFT, FAST, ORB, BRISK and AKAZE).
+    * Although BRISK generates around 250 keypoints of the front vehicle, it takes 40s for computing.
+    * Considering speed and performance, Fast Detector can generate around 150 keypoints of the front vehicle in 1s. 
+
+* Added descriptor extraction and matching using brute force and also the FLANN. 
+  * **Keypoint Descriptors:**
+    * descriptorType variable can be BRISK, BRIEF, SIFT, FREAK, ORB, AKAZE.
+    * Based on the descriptorType variable, the corresponding extractor is used.
+    * If detectorType is AKAZE, then descriptorType should be AKAZE.
+
+  * **Descriptor Matching:**
+    * matcherType variable can be MAT_BF , MA_FLANN       
+      * For Keypoint matching, both Brute force matching(MAT_BF) and Flann matching(MAT_FLANN) are implemented.
+      * Flann matching works with only HOG descriptors, but brute force matching works for both HOG and binary descriptors. 
+    * selectorType variable can be MAT_NN, MAT_KNN
+      * Implemented both Nearest Neighbour approach k-Nearest Neighbour approach (with k=2) to obtain matches.
+      * For k-NN approach, a match is considered as a good match only if distance ratio of the two matches is less than 0.8 
+
+  * **Descriptor Algorithm Evaluation:**
+    * In [2D_Feature_Tracking_Log.csv](https://github.com/ajaynarasimha/Sensor-Fusion/blob/main/2D_Feature_Matching/2D_Feature_tracking_Log.csv), time taken for keypoint detection, descriptor extraction and matching for all the 10 images with all the possible detector-descriptor combinations are reported.
+    * Considering speed and performance, BRISK, BRIEF, ORB descriptors can be generated in 1s, with matches more than 75% of the keypoints detected.
+    * Although SIFT Descriptor performance is close to 75%, it takes around 40s for generating descriptors.
+
+
+* Different combinations of detector and descriptor algorithms are tested to compare the speed and performance.        
+  * **Final Evaluation:**
+    * In autonomous vehicles, the execution time (for keypoint detection, descriptor extraction and matching) should be very crucial. 
+      These 3 combinations are executed in the shortest time while maintaining good matching features:
+      * **_FAST + BRISK_** : the execution time for 10 images is 39ms
+      * **_FAST + BRIEF_** : the execution time for 10 images is 44ms
+      * **_FAST + ORB_** : the execution time for 10 images is 68ms
+
+
 
 ## Dependencies for Running Locally
 * cmake >= 2.8
